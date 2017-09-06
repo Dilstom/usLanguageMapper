@@ -20,6 +20,8 @@
     <!-- <script src="http://momentjs.com/downloads/moment.js"></script>   -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
+
+
   </head>
 
   <body>
@@ -27,7 +29,7 @@
 
 <div class="container">
       <!-- Jumbotron -->
-      <div class="jumbotron" style="background-color: black; color: white">
+      <div class="jumbotron" style="background-color: #262626; color: white">
         <h1 class="text-center">Dynamic Language Map</h1>
         <h3 class="text-center">A Comprehensive Directory of Languages Spoken in Each State</h3>
       </div>
@@ -40,46 +42,7 @@
        <li class="dropdown">
          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong>Select Language </strong><span class="caret"></span></a>
          <ul class="dropdown-menu scrollable-menu" role="menu">
-           <li><a href="#">SPANISH AND SPANISH CREOLE</a></li>
-           <li><a href="#">French (incl. Patois, Cajun)</a></li>
-           <li><a href="#">French Creole</a></li>
-           <li><a href="#">Italian</a></li>
-           <li><a href="#">Portuguese (incl. Portuguese Creole)</a></li>
-           <li><a href="#">German (incl. Luxembourgian)</a></li>
-           <li><a href="#">Yiddish</a></li>
-           <li><a href="#">Other West Germanic languages</a></li>
-           <li><a href="#">Scandinavian languages</a></li>
-           <li><a href="#">Greek</a></li>
-           <li><a href="#">Russian</a></li>
-           <li><a href="#">Polish</a></li>
-           <li><a href="#">Serbo-Croatian languages</a></li>
-           <li><a href="#">Other Slavic languages</a></li>
-           <li><a href="#">Armenian</a></li>
-           <li><a href="#">Persian</a></li>
-           <li><a href="#">Hindi</a></li>
-           <li><a href="#">PGujarati</a></li>
-           <li><a href="#">Urdu</a></li>
-           <li><a href="#">Other Indic languages</a></li>
-           <li><a href="#">Other Indo-European languages</a></li>
-           <li><a href="#">Chinese (incl. Cantonese, Mandarin,<br> other Chinese languages)</a></li>
-           <li><a href="#">Japanese</a></li>
-           <li><a href="#">Korean</a></li>
-           <li><a href="#">Mon-Khmer, Cambodian</a></li>
-           <li><a href="#">Hmong</a></li>
-           <li><a href="#">SPANISH AND SPANISH CREOLE</a></li>
-           <li><a href="#">Thai</a></li>
-           <li><a href="#">Laotian</a></li>
-           <li><a href="#">Vietnamese</a></li>
-           <li><a href="#">Other Asian languages</a></li>
-           <li><a href="#">Tagalog</a></li>
-           <li><a href="#">Other Pacific Island languages</a></li>
-           <li><a href="#">Navajo</a></li>
-           <li><a href="#">Other Native North American languages</a></li>
-           <li><a href="#">Hungarian</a></li>
-           <li><a href="#">Arabic</a></li>
-           <li><a href="#">Hebrew</a></li>
-           <li><a href="#">African languages</a></li>
-           <li><a href="#">Other and unspecified languages</a></li>
+           
          </ul>
        </li>
      </ul>
@@ -99,7 +62,13 @@
     <span id="infoTable"></span>
   </div>
 </div>
-
+ 
+  <div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12" >   <div class="termsService">
+      <p>"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau" ( link to <a href="https://www.census.gov/data/developers/about/terms-of-service.html" target="_blank">https://www.census.gov/data/developers/about/terms-of-service.html</a>) </p>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12" >   <div class="termsService">
       <p>"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau" ( link to <a href="https://www.census.gov/data/developers/about/terms-of-service.html" target="_blank">https://www.census.gov/data/developers/about/terms-of-service.html</a>) </p>
@@ -183,10 +152,12 @@
   </div>
 </div> 
 </div>   
-
+<div id="map_election" style="position: relative; width: 500px; height: 300px;"></div>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/topojson.v2.min.js"></script>
+<script src="assets/javascript/datamaps.usa.min.js"></script>
+
 
 <script src="assets/javascript/script.js"></script>
     
