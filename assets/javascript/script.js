@@ -31,7 +31,7 @@ function wikiAPI() {
       type: "GET"
   }).done(function(response) {
     $("#wikiTitle").text(capitalize_Words(response[1][0]));
-    $("#infoTable").append(response[2]+"<br/><a href=\""+response[3][0]+"\">Wikipedia</a>");
+    $("#infoTable").append(response[2]+"<br/><a href=\""+response[3][0]+"\" target=\"_blank\">wikipedia</a>");
   });
   function capitalize_Words(str)
   {
