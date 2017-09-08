@@ -91,7 +91,7 @@ ul {
 }
 body{
   background-color: lightsteelblue;
-  background-image: url('../images/statueOfLiberty.jpg');
+  background-image: url('../images/parchment.jpg');
 }
 #tooltip {
     position: absolute;
@@ -140,6 +140,7 @@ body{
 }
 .jumbotron {
   margin-bottom: 10px;
+  height: 7%;
 }
 #collapsable-container {
   padding: 10px 40px;
