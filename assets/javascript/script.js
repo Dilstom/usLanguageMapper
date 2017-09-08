@@ -36,7 +36,7 @@ function wikiAPI() {
             $("#wikiTitle").text("Wikipedia entry unavailable")
         } else {
             $("#wikiTitle").text(capitalize_Words(response[1][0]));
-            $("#infoTable").append(response[2] + "<br/><a href=\"" + response[3][0] + "\">" + response[3][0] + "</a>");
+            $("#infoTable").append(response[2] + "<br/><a href=\"" + response[3][0] + "\">Wikipedia</a>");
         }
     });
 
@@ -289,30 +289,75 @@ function uStates(id, data, toolTip) {
 }
 
 function drawLegend(data) {
-    var w = 140,
-        h = 400;
+    var w = 400,
+        h = 140;
 
     d3.select("#statesvg").select("svg").remove();
     var key = d3.select("svg").append("svg").attr("width", w).attr("height", h).attr("class", "key");
 
-    var legend = key.append("defs").append("svg:linearGradient").attr("id", "gradient").attr("x1", "0%").attr("y1", "0%").attr("x2", "0%").attr("y2", "100%").attr("spreadMethod", "pad");
+    var legend = key.append("defs").append("svg:linearGradient").attr("id", "gradient").attr("x1", "100%").attr("y1", "0%").attr("x2", "0%").attr("y2", "0%").attr("spreadMethod", "pad");
 
     legend.append("stop").attr("offset", "0%").attr("stop-color", "black").attr("stop-opacity", 1);
 
     legend.append("stop").attr("offset", "100%").attr("stop-color", "white").attr("stop-opacity", 1);
 
-    key.append("rect").attr("width", w - 130).attr("height", h - 100).style("fill", "url(#gradient)").attr("transform", "translate(0,10)");
+    key.append("rect").attr("width", w - 100).attr("height", h - 130).style("fill", "url(#gradient)").attr("transform", "translate(40,10)");
 
     var xmin = d3.min(data);
     var xmax = d3.max(data);
-    var x = d3.scaleLinear().range([300, 0]).domain([0, xmax]);
-    var xAxis = d3.axisLeft(x);
+    var x = d3.scaleLinear().range([300, 0]).domain([xmax, 0]);
+    var xAxis = d3.axisBottom(x);
     xAxis.ticks(1, 's');
 
-    key.append("g").attr("class", "xaxis").attr("transform", "translate(41,10)").call(xAxis).append("text").attr("transform", "rotate(-90)").attr("y", 30).attr("dy", ".71em");
+    key.append("g").attr("class", "xaxis").attr("transform", "translate(40,20)").call(xAxis).append("text").attr("transform", "rotate(-90)").attr("y", 30).attr("dy", ".71em");
 }
 
+$("#collapse-button").on("click", function(e) {
+    e.preventDefault();
+    $("#collapsable-container").hide();
+});
+$(".menu-expand").on("click", function(e) {
+    e.preventDefault();
+    $("#collapsable-container").show();
+});
+$("#about").on("click", function(e){
+    e.preventDefault();
+    $(".dropdown").hide();
+    $("#wikiInfo").hide();
+    $("#collapse-info").html("<h4>About</h4><hr>This project was built utilizing D3.js, Firebase, JavaScript, jQuery, HTML, CSS, Bootstrap, FontAwesome and lots of caffeine.");
+});
+$("#team").on("click", function(e){
+    e.preventDefault();
+    $(".dropdown").hide();
+    $("#wikiInfo").hide();
+    $("#collapse-info").html("<h4>Team</h4><hr>Jeanelle - HTML/CSS, Powerpoint<br/>Dil - HTML/CSS<br/>Christopher - Census API<br/>Chris - D3.js, Census API, jQuery, JavaScript<br/>Richard - Census API, Firebase, Wiki API, jQuery, JavaScript");
+});
+/*<li class="dropdown">
+ <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong>Select Language </strong><span class="caret"></span></a>
+     <ul class="dropdown-menu scrollable-menu" role="menu">
+     <!-- Dropdown is populated from Firebase -->
+           
+     </ul>
+</li>*/
 
+$("#select").on("click", function(e){
+    e.preventDefault();
+    $(".dropdown").show();
+    $("#wikiInfo").hide();
+    $("#collapse-info").text("");
+});
+$("#wiki").on("click", function(e){
+    e.preventDefault();
+    $(".dropdown").hide();
+    $("#wikiInfo").show();
+ $("#collapse-info").text("");
+});
+$("#tech").on("click", function(e){
+    e.preventDefault();
+    $(".dropdown").hide();
+    $("#wikiInfo").hide();
+    $("#collapse-info").html("<h4>Technology</h4><hr>D3.js - Data-Driven Documents (<a href=\"https://d3js.org/\">https://d3js.org/</a>)<br/>jQuery - write less, do more (<a href=\"https://jquery.com\">jQuery</a>)<br/>JavaScript - (<a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript\">moz://a JavaScript</a>)<br/>Firebase - Cloud Database by Google (<a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript\">moz://a JavaScript</a>)<br/>Firebase - (<a href=\"https://firebase.google.com/\">firebase.google.com</a>)<br/>Bootstrap - Mobile-First Projects (<a href=\"https://getbootstrap.com\">getbootstrap.com</a>)<br/>FontAwesome - The Iconic Font and CSS Toolkit (<a href=\"https://fontawesome.io/\">fontawesome.io</a>)<br/>Caffeine - The thing keeping all coders coding.");
+});
 
 $(document).on("click", "#lang-select", getValues);
 
