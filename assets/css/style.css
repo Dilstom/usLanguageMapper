@@ -90,8 +90,7 @@ ul {
   color: grey;
 }
 body{
-  background-color: lightsteelblue;
-  background-image: url('../images/parchment.jpg');
+  background-color: rgb(225,225,230);
 }
 #tooltip {
     position: absolute;
