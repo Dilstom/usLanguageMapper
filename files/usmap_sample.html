@@ -105,14 +105,14 @@
         "WI", "MO", "AR", "OK", "KS", "LS", "VA"
     ]
     .forEach(function(d) {
-        var low = Math.round(300 * Math.random()),
-            mid = Math.round(300 * Math.random()),
-            high = Math.round(300 * Math.random());
+        var low = Math.round(300*Math.random()),
+            mid = Math.round(300*Math.random()),
+            high = Math.round(300*Math.random());
         sampleData[d] = {
             low: d3.min([low, mid, high]),
             high: d3.max([low, mid, high]),
             avg: Math.round((low + mid + high) / 3),
-            color: d3.interpolate("white", "black")(low / 300)
+            color: d3.interpolate("white", "black")(low/300)
         };
     });
 

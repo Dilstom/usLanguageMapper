@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+<script>
+//Firebase setup
+var config = {
+    apiKey: "AIzaSyCnyCGbGl55oWDhMfHxEPFBNwMi5R1GWYs",
+    authDomain: "county-lang-us.firebaseapp.com",
+    databaseURL: "https://county-lang-us.firebaseio.com",
+    projectId: "county-lang-us",
+    storageBucket: "county-lang-us.appspot.com",
+    messagingSenderId: "894768734509"
+};
+firebase.initializeApp(config);
+//Census API call
+function censusAPIHttpStringConstructor(languageCode){
+	var censusAPIKey = "016b814ae08a6118181051bd2916fd0c8dcb13e2";
+	return "api.census.gov/data/2013/language?get=EST,LANLABEL,NAME,CTY&for=county:*&LAN="+languageCode+"&KEY="+censusAPIKey;
+}
+
+var censusAPIResponse = {};
+for(var i = 600; i<1000; i++){
+	var censusAPIRequest = censusAPIHttpStringConstructor(i);
+	$.ajax({
+		url: censusAPIRequest,
+		data: {
+			format: "array";
+		}
+		error: function(){
+			console.log("Error");
+		}
+		success: {
+			function(data){
+				censusAPIResponse[data[1][2]]=data;
+				console.log(data[1][2]);
+			}
+		}
+	})
+}
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
+

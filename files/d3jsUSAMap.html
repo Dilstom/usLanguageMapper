@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>D3.js Example - USA Map - County Resolution</title>
+</head>
+<style>
+.state-borders {
+    stroke: white;
+    fill: none;
+    stroke-width: 1;
+}
+
+.county-borders {
+    stroke: grey;
+    fill: none;
+    stroke-width: 0.5;
+}
+
+.counties path:hover {
+    fill-opacity: 0.5;
+    fill: red;
+}
+
+#tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 20px;
+    margin: 10px;
+    font: 12px sans-serif;
+    background: blue;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid grey;
+    border-radius: 5px;
+    width: auto;
+    padding: 4px;
+    color: white;
+    opacity: 0;
+}
+
+#tooltip table {
+    table-layout: fixed;
+}
+
+#tooltip tr td {
+    padding: 0;
+    margin: 0;
+}
+
+#tooltip tr td:nth-child(1) {
+    width: 50px;
+}
+
+#tooltip tr td:nth-child(2) {
+    text-align: center;
+}
+</style>
+
+<body>
+    <div id="tooltip"></div>
+    <svg width="960" height="960" id="map"></svg>
+    <!-- Script calls-->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="countyboundaries.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCnyCGbGl55oWDhMfHxEPFBNwMi5R1GWYs",
+        authDomain: "county-lang-us.firebaseapp.com",
+        databaseURL: "https://county-lang-us.firebaseio.com",
+        projectId: "county-lang-us",
+        storageBucket: "county-lang-us.appspot.com",
+        messagingSenderId: "894768734509"
+    };
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
+
+    //Example code: http://bl.ocks.org/rveciana/170a76b8dc1f9cfd8b2d
+    var svg = d3.select("svg");
+    var path = d3.geoPath();
+    var id = "#map";
+
+    svg.append("g").attr("class", "counties").selectAll("path").data(topojson.feature(cb, cb.objects.counties).features).enter().append("path").attr("d", path);
+    svg.append("path").attr("class", "state-borders").attr("d", path(topojson.mesh(cb, cb.objects.states, function(a, b) { return a !== b; })));
+    //svg.append("path").attr("class", "county-borders").attr("d", path(topojson.mesh(cb, cb.objects.counties, function(a, b) { return a !== b; })));
+    svg.selectAll(".counties").on("mouseover", showTooltip).on("mouseout", hideTooltip);
+
+    //d3.select(id).selectAll(".counties").data(cb).enter().append("path").attr("class", "counties").attr("d", function(d) { return d.d; }).style("fill", function(d) { return cb[d.id].color; }).on("mouseover", showTooltip).on("mouseout", hideTooltip);
+
+    //Functions
+    function showTooltip(d) {
+        console.log("Mouseover");
+        d3.select("#tooltip").transition().duration(200).style("opacity", .9);
+        //d3.select("#tooltip").html(toolTip(d.n, data[d.id])).style("left",(d3.event.pageX) + "px").style("top",(d3.event.pageY-20) + "px");
+        d3.select("#tooltip").html(toolTip()).style("left", (d3.event.pageX) + "px").style("top", (d3.event.pageY - 20) + "px");
+    }
+
+    function hideTooltip() {
+        console.log("Mouseout");
+        d3.select("#tooltip").transition().duration(200).style("opacity", 0);
+    }
+
+    function toolTip() {
+        return "<h3>" + 1000 + "</h3><table>" + "<tr><td><h4>Speaker Population</h4></td></tr></table>";
+    }
+
+    //Add legend
+    var w = 140,
+        h = 400;
+
+    var key = d3.select("body").append("svg").attr("width", w).attr("height", h);
+
+    var legend = key.append("defs").append("svg:linearGradient").attr("id", "gradient").attr("x1", "100%").attr("y1", "0%").attr("x2", "100%").attr("y2", "100%").attr("spreadMethod", "pad");
+
+    legend.append("stop").attr("offset", "0%").attr("stop-color", "black").attr("stop-opacity", 1);
+
+    legend.append("stop").attr("offset", "100%").attr("stop-color", "white").attr("stop-opacity", 1);
+
+    key.append("rect").attr("width", w - 100).attr("height", h - 100).style("fill", "url(#gradient)").attr("transform", "translate(0,10)");
+
+    var y = d3.scale.linear().range([300, 0]).domain([1, 10000]);
+
+    var yAxis = d3.svg.axis().scale(y).orient("right");
+
+    key.append("g").attr("class", "y axis").attr("transform", "translate(41,10)").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 30).attr("dy", ".71em"); //
+    </script>
+</body>
+
+</html>
